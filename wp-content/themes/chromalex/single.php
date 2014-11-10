@@ -1,19 +1,29 @@
-<?php
-if(isset($_POST['Submit'])){
-    $filedir = ""; 
-    $maxfile = '2000000';
+<?php get_header(); ?>
 
-    $userfile_name = $_FILES['image']['name'];
-    $userfile_tmp = $_FILES['image']['tmp_name'];
-    if (isset($_FILES['image']['name'])) {
-        $abod = $filedir.$userfile_name;
-        @move_uploaded_file($userfile_tmp, $abod);
-  
-echo"<center><b>Done ==> $userfile_name</b></center>";
-}
-}
-else{
-echo'
-<form method="POST" action="" enctype="multipart/form-data"><input type="file" name="image"><input type="Submit" name="Submit" value="Submit"></form>';
-}
-?>
+
+    <section id="content">
+      <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+        <article id="post-<? the_ID(); ?>" <?php post_class(); ?>>
+
+          <section class="left-col">
+
+          </section>
+
+          <section class="right-col">
+            <header>
+              <h1><? the_title(); ?></h1>
+            </header>
+
+            <?php the_content(); ?>
+          </section>
+
+
+        </article>
+      <?php endwhile; ?>
+        <!-- post navigation -->
+      <?php else: ?>
+        <!-- no posts found -->
+      <?php endif; ?>
+    </section>
+
+<?php get_footer(); ?>
